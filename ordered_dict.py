@@ -26,7 +26,7 @@ class OrderedDict:
         raise KeyError(repr(a_key))
 
     def __contains__(self, a_key):
-        for key, value in zip(self._keys, self._values):
+        for key in self._keys:
             if key == a_key:
                 return True
         return False
