@@ -9,14 +9,15 @@ class OrderedDict:
     def values(self):
         return self._values
 
+    def __setitem__(self, key, value):
+        self._keys.append(key)
+        self._values.append(value)
+
     def items(self):
         result = []
         for key, value in zip(self._keys, self._values):
             result.append((key, value))
         return result
-
-    def __len__(self):
-        return len(self._keys)
 
     def __getitem__(self, a_key):
         for key, value in zip(self._keys, self._values):
@@ -24,15 +25,14 @@ class OrderedDict:
                 return value
         raise KeyError(repr(a_key))
 
-    def __setitem__(self, key, value):
-        self._keys.append(key)
-        self._values.append(value)
-
     def __contains__(self, a_key):
         for key, value in zip(self._keys, self._values):
             if key == a_key:
                 return True
         return False
+
+    def __len__(self):
+        return len(self._keys)
 
     def __eq__(self, other):
         if len(self) != len(other):
@@ -42,6 +42,7 @@ class OrderedDict:
                 return False
         return True
 
+    #not necessary in py3 
     def __ne__(self, other):
         return not self == other
 
